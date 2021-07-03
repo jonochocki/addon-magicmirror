@@ -37,9 +37,9 @@ RUN \
     --only=production \
   \
   && git clone \
-    https://github.com/aserramonner/MMM-HASS.git /opt/modules/MMM-HASS \
+    https://github.com/jonochocki/MMM-CTA.git /opt/modules/MMM-CTA \
   \
-  && cd /opt/modules/MMM-HASS \
+  && cd /opt/modules/MMM-CTA \
   && npm install \
     --no-optional \
     --only=production \
@@ -56,7 +56,7 @@ RUN \
   && rm -f -r \
     /tmp/* \
     /opt/.git \
-    /opt/modules/MMM-HASS/.git \
+    /opt/modules/MMM-CTA/.git \
     /root/.electron
 
 # Copy root filesystem
