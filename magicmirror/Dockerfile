@@ -1,4 +1,4 @@
-ARG BUILD_FROM=hassioaddons/base:7.0.2
+ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:10.0.0
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
@@ -75,13 +75,13 @@ LABEL \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION} \
-    maintainer="Joakim Sørensen @ludeeus <ludeeus@gmail.com>" \
+    maintainer="Jon Ochocki" \
     org.label-schema.description="MagicMirror² is an open source modular smart mirror platform." \
     org.label-schema.build-date=${BUILD_DATE} \
     org.label-schema.name="MagicMirror²" \
     org.label-schema.schema-version="1.0" \
     org.label-schema.url="https://community.home-assistant.io/t/community-hass-io-add-on-magicmirror/XXXX" \
-    org.label-schema.usage="https://github.com/hassio-addons/addon-magicmirror/tree/master/README.md" \
+    org.label-schema.usage="https://github.com/jonochocki/addon-magicmirror/tree/master/README.md" \
     org.label-schema.vcs-ref=${BUILD_REF} \
-    org.label-schema.vcs-url="https://github.com/hassio-addons/addon-magicmirror" \
-    org.label-schema.vendor="Home Assistant Community Add-ons"
+    org.label-schema.vcs-url="https://github.com/jonochocki/addon-magicmirror" \
+    org.label-schema.vendor="Jon Ochocki"
