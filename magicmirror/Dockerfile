@@ -2,10 +2,6 @@ ARG BUILD_FROM=hassioaddons/base:7.0.2
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
-# Set ENV
-ENV MM_VERSION="v2.10.1" \
-    MMM_HASS='7d0063b0bdfffc9b8d4c751fb31dc0ea0f4e39e4'
-
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -15,54 +11,54 @@ WORKDIR /opt
 # Setup base
 # hadolint ignore=DL3003
 RUN \
-  apk add --no-cache \
-      git=2.24.1-r0 \
-      lua-resty-http=0.15-r0 \
-      nginx-mod-http-lua=1.16.1-r6 \
-      nginx=1.16.1-r6 \
-      nodejs=12.15.0-r1 \
-      npm=12.15.0-r1 \
-      paxctl=0.9-r0 \
-  \
-  && paxctl -cm "$(command -v node)" \
-  && npm config set unsafe-perm true \
-  \
-  && npm install -g modclean@3.0.0-beta.1 \
-  \
-  && git clone --branch "${MM_VERSION}" --depth=1 \
-    https://github.com/MichMich/MagicMirror.git /opt \
-  \
-  && npm install \
-    --no-optional \
-    --only=production \
-  \
-  && git clone \
-    https://github.com/jonochocki/MMM-CTA.git /opt/modules/MMM-CTA \
-  \
-  && cd /opt/modules/MMM-CTA \
-  && npm install \
-    --no-optional \
-    --only=production \
-  \
-  && modclean \
-    --path /opt \
-    --no-progress \
-    --keep-empty \
-    --run \
-  \
-  && npm uninstall -g modclean \
-  && npm cache clear --force \
-  \
-  && rm -f -r \
-    /tmp/* \
-    /opt/.git \
-    /opt/modules/MMM-CTA/.git \
-    /root/.electron
+    apt-get update \
+    \
+    && apt-get install -y --no-install-recommends \
+        git=2.32.0 \
+        lua-resty-http=0.16.1 \
+        nginx-mod-http-lua=1.20.1-r4 \
+        nginx=1.20.1 \
+        nodejs=14.7.2 \
+        npm=13.14.0 \
+        paxctl=0.9-r0 \
+    \
+    && paxctl -cm "$(command -v node)" \
+    && npm config set unsafe-perm true \
+    \
+    && npm install -g modclean@3.0.0-beta.1 \
+    \
+    && git clone --branch "v2.16.0" --depth=1 \
+        https://github.com/MichMich/MagicMirror.git /opt \
+    \
+    && npm install \
+      --no-optional \
+      --only=production \
+    \
+    && git clone \
+      https://github.com/jonochocki/MMM-CTA.git /opt/modules/MMM-CTA \
+    \
+    && cd /opt/modules/MMM-CTA \
+    && npm install \
+    \
+    && modclean \
+      --path /opt \
+      --no-progress \
+      --keep-empty \
+      --run \
+    \
+    && npm uninstall -g modclean \
+    && npm cache clear --force \
+    \
+    && rm -f -r \
+      /tmp/* \
+      /opt/.git \
+      /opt/modules/MMM-CTA/.git \
+      /root/.electron
 
 # Copy root filesystem
 COPY rootfs /
 
-# Build arugments
+# Build arguments
 ARG BUILD_ARCH
 ARG BUILD_DATE
 ARG BUILD_REF
